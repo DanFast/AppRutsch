@@ -1,19 +1,13 @@
 <ion-header>
-
   <ion-navbar color="primary">
-    <button ion-button icon-only menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-
+    <ion-buttons end>
+      <button ion-button icon-only [menuToggle]="activeMenu">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>
       List all Landslides
     </ion-title>
-
-    <ion-buttons end>
-      <button ion-button icon-only (click)="openModal()">
-        <ion-icon name="options"></ion-icon>
-      </button>
-    </ion-buttons>
   </ion-navbar>
 
   <ion-toolbar>

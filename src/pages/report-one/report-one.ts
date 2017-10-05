@@ -97,7 +97,7 @@ export class ReportOnePage implements OnInit, AfterViewInit {
           //indoorPicker: true,
           mapToolbar: true
         },
-        mapType: "MAP_TYPE_SATELLITE",
+        mapType: "MAP_TYPE_TERRAIN",
       };
 
       this.map = this.googleMaps.create(this.mapElement, mapOptions);
