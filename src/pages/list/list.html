@@ -1,0 +1,112 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      List all Landslides
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openModal()">
+        <ion-icon name="options"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="landslide">
+      <ion-segment-button value="mine">
+        Mine
+      </ion-segment-button>
+      <ion-segment-button value="search">
+        Search
+      </ion-segment-button>
+      <ion-segment-button value="all" >
+        All
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div [ngSwitch]="landslide">
+
+    <ion-list *ngSwitchCase="'mine'">
+      <ion-list-header>My entries</ion-list-header>
+      <ion-item-sliding *ngFor="let slide of slides" >
+        <button ion-item *ngIf="slide.name == 'Donald Duck'" (click)="showDetails(slide)">
+          <ion-thumbnail item-left>
+            <img src="{{slide.pic}}" *ngIf="slide.pic !== 'N/A'" >
+          </ion-thumbnail>
+          <h2>{{slide.title}}</h2>
+          <P><ion-icon name="pin"></ion-icon> Lat:{{slide.position.lat}}, Long: {{slide.position.lgn}}</P>
+          <P><ion-icon name="contact"></ion-icon> {{slide.name}}</P>
+          <P><ion-icon name="calendar"></ion-icon> {{slide.date}}</P>
+        </button>
+        <ion-item-options side="right">
+          <button ion-button large outline color="primary">
+            <ion-icon name="construct"></ion-icon>
+          </button>
+          <button ion-button large outline color="danger">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'search'">
+      <ion-searchbar>
+
+      </ion-searchbar>
+      <ion-list-header>Result</ion-list-header>
+      <ion-item-sliding *ngFor="let slide of slides">
+        <button ion-item (click)="showDetails(slide)">
+          <ion-thumbnail item-left>
+            <img src="{{slide.pic}}" *ngIf="slide.pic !== 'N/A'" >
+          </ion-thumbnail>
+          <h2>{{slide.title}}</h2>
+          <P><ion-icon name="pin"></ion-icon> Lat:{{slide.position.lat}}, Long: {{slide.position.lgn}}</P>
+          <P><ion-icon name="contact"></ion-icon> {{slide.name}}</P>
+          <P><ion-icon name="calendar"></ion-icon> {{slide.date}}</P>
+        </button>
+        <ion-item-options side="right">
+          <button ion-button large outline color="primary">
+            <ion-icon name="construct"></ion-icon>
+          </button>
+          <button ion-button large outline color="danger">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'all'">
+      <ion-list-header>All entries</ion-list-header>
+      <ion-item-sliding *ngFor="let slide of slides">
+        <button ion-item (click)="showDetails(slide)">
+          <ion-thumbnail item-left>
+            <img src="{{slide.pic}}" *ngIf="slide.pic !== 'N/A'" >
+          </ion-thumbnail>
+          <h2>{{slide.title}}</h2>
+          <P><ion-icon name="pin"></ion-icon> Lat:{{slide.position.lat}}, Long: {{slide.position.lgn}}</P>
+          <P><ion-icon name="contact"></ion-icon> {{slide.name}}</P>
+          <P><ion-icon name="calendar"></ion-icon> {{slide.date}}</P>
+        </button>
+        <ion-item-options side="right">
+          <button ion-button large outline color="primary">
+            <ion-icon name="construct"></ion-icon>
+          </button>
+          <button ion-button large outline color="danger">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+  </div>
+</ion-content>

@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title text-center>Landslide Detail Info</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      {{slide.title}}
+    </ion-card-header>
+    <ion-card-content>
+      <ion-icon name="pin"></ion-icon> Lat:{{slide.position.lat}}, Long: {{slide.position.lgn}}
+    </ion-card-content>
+    <img src="{{slide.pic}}" *ngIf="slide.pic !== 'N/A'" >
+    <ion-card-content>
+      <ion-icon name="calendar"></ion-icon> {{slide.date}}
+      from: <ion-icon name="contact"></ion-icon> {{slide.name}}
+    </ion-card-content>
+  </ion-card>
+</ion-content>

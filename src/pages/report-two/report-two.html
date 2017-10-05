@@ -1,0 +1,55 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      Image Upload
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openModal()">
+        <ion-icon name="options"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="card-background-page">
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12 *ngFor="let photo of photos; let id = index">
+          <ion-card>
+            <img [src]="photo" *ngIf="photo"/>
+            <ion-fab top right>
+              <button ion-fab mini (click)="deletePhoto(id)">
+                <ion-icon name="close"></ion-icon>
+              </button>
+            </ion-fab>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+</ion-content>
+
+  <ion-footer>
+    <ion-toolbar color="primary">
+      <ion-buttons>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <button ion-button block round icon-left (click)='takePhoto()'><ion-icon name="camera"></ion-icon>Select Image</button>
+            </ion-col>
+            <ion-col>
+              <button ion-button block round icon-left (click)='doUpload()'><ion-icon name="cloud-upload"></ion-icon>Upload</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>

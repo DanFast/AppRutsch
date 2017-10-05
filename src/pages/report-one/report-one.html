@@ -1,0 +1,49 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      Report
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openModal()">
+        <ion-icon name="options"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+  <div #reportmap id="reportmap" style="height:100%;"></div>
+</ion-content>
+
+<ion-footer no-border>
+  <ion-toolbar color="primary">
+    <ion-buttons>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div><button ion-button block icon-left  round (click)="findMe()"><ion-icon name="navigate"></ion-icon>Find Me</button></div>
+          </ion-col>
+          <ion-col>
+            <div><button ion-button block icon-start  round (click)="addMarker()"><ion-icon name="pin"></ion-icon>Add Marker</button></div>
+          </ion-col>
+          <ion-col>
+            <div><button ion-button block icon-end  round (click)="nextPage()" >Next<ion-icon name="arrow-forward"></ion-icon></button></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+
+
+
+
+
