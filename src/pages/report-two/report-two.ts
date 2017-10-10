@@ -1,3 +1,4 @@
+// Some parts of the code where taken fom this tutorial: https://devdactic.com/ionic-2-images/
 import { Component } from '@angular/core';
 import {IonicPage,NavParams, NavController, ActionSheetController,
   ToastController, Platform, LoadingController, Loading, AlertController} from 'ionic-angular';
@@ -6,6 +7,7 @@ import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import {HomePage} from "../home/home";
 
 declare var cordova: any;
 @IonicPage()
@@ -50,19 +52,22 @@ export class ReportTwoPage {
       title: 'Select Image Source',
       buttons: [
         {
-          text: 'Load from Library',
-          handler: () => {
-            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
-          }
-        },
-        {
           text: 'Use Camera',
+          icon: 'camera',
           handler: () => {
             this.takePicture(this.camera.PictureSourceType.CAMERA);
           }
         },
         {
+          text: 'Load from Library',
+          icon: 'images',
+          handler: () => {
+            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+          }
+        },
+        {
           text: 'Cancel',
+          icon: 'close',
           role: 'cancel'
         }
       ]
@@ -81,6 +86,7 @@ export class ReportTwoPage {
 
     // Get the data of an image
     this.camera.getPicture(options).then((imagePath) => {
+      //alert("0, " + imagePath);
       // Special handling for Android library
       if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
         this.filePath.resolveNativePath(imagePath)
@@ -140,11 +146,18 @@ export class ReportTwoPage {
       });
   }
   doUpload(){
-
+    this.loading = this.loadingCtrl.create({
+      content: 'Uploading...',
+      duration: 3000
+    });
+    this.loading.present();
+    this.showAlert();
+    this.navCtrl.goToRoot(HomePage);
   }
 
   // Create a new name for the image
   private createFileName() {
+    //Return the number of milliseconds since 1970/01/01
     var d = new Date(),
       n = d.getTime(),
       newFileName =  n + ".jpg";
@@ -153,8 +166,13 @@ export class ReportTwoPage {
 
 // Copy the image to a local folder
   private copyFileToLocalDir(namePath, currentName, newFileName) {
+    //alert("1, " + namePath + ", " + currentName + ", " + newFileName);
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
       this.lastImage = newFileName;
+      this.base64Image = cordova.file.dataDirectory + newFileName;
+      //alert("2, " + this.base64Image)
+      this.photos.push(this.base64Image);
+      this.photos.reverse();
     }, error => {
       this.presentToast('Error while storing file.');
     });
@@ -175,7 +193,16 @@ export class ReportTwoPage {
       return '';
     } else {
       return cordova.file.dataDirectory + img;
+      //return cordova.file.externalDataDirectory + img;
     }
+  }
+  showAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Landslide successful reported!',
+      subTitle: 'Your friend, Obi wan Kenobi, just accepted your friend request!',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 }

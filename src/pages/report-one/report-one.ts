@@ -1,4 +1,4 @@
-import { IonicPage, NavController, NavParams,Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Platform, LoadingController} from 'ionic-angular';
 import { Component, ViewChild, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 
 declare var google: any;
@@ -39,7 +39,8 @@ export class ReportOnePage implements OnInit, AfterViewInit {
 
   constructor(private navCtrl: NavController, private navParams: NavParams,
               private googleMaps: GoogleMaps, private nav: NavController ,
-              public http: Http, public plt: Platform, private geolocation: Geolocation) {
+              public http: Http, public plt: Platform, private geolocation: Geolocation,
+              public loadingCtrl: LoadingController) {
 
     this.pushPage = ReportTwoPage;
     this.params = { id: 42 };
@@ -54,6 +55,7 @@ export class ReportOnePage implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.plt.ready().then(() => {
+      this.presentLoading();
       this.geolocation.getCurrentPosition({
        timeout: 27000,
        enableHighAccuracy: true
@@ -254,6 +256,14 @@ export class ReportOnePage implements OnInit, AfterViewInit {
 
       this.navCtrl.push(ReportTwoPage, this.params);
     }
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Please wait...",
+      duration: 3000
+    });
+    loader.present();
   }
 
 }
