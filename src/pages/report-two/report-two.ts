@@ -199,7 +199,7 @@ export class ReportTwoPage {
   showAlert() {
     let alert = this.alertCtrl.create({
       title: 'Landslide successful reported!',
-      subTitle: 'Your friend, Obi wan Kenobi, just accepted your friend request!',
+      subTitle: '',
       buttons: ['OK']
     });
     alert.present();
